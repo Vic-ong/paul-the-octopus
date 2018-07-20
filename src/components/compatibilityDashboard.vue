@@ -8,6 +8,7 @@
         <v-layout row wrap>
           <v-flex d-flex>
             <v-text-field box
+              color="teal"
               label="Applicant Name"
               v-model="applicant.name"
             ></v-text-field>
@@ -41,6 +42,7 @@
         <v-layout row wrap>
           <v-flex d-flex>
             <v-text-field box
+              color="indigo"
               label="Team Average"
             ></v-text-field>
           </v-flex>
@@ -167,7 +169,11 @@
             teamwork: 3,
             strength: 6,
             endurance: 3,
-            intelligence: 5
+            intelligence: 5,
+            // management: 4,
+            // leadership: 7,
+            // programming: 5,
+            // outgoing: 7
           }
         }
         this.attrRange = {
