@@ -76,18 +76,20 @@
             <v-flex d-flex xs12>
               <p class="headline">Compatibility Score</p>
             </v-flex>
-            <v-flex d-flex xs12 v-for="(value, key) in scores.compatibility" :key="key">
+            <v-flex d-flex xs12 v-for="(value, index) in scores.compatibility" :key="index">
               <v-layout row>
-                <v-flex xs5 style="margin: auto;">
-                  <p class="subheading grey--text">{{ key }}</p>
+                <v-flex xs2 style="margin: auto;">
+                  <p class="subheading grey--text">L<sub>{{ scores.compatibility[index].p }}</sub></p>
                 </v-flex>
                 <v-flex xs5 style="margin: auto;">
                   <p class="title font-weight-bold blue--text">
-                    {{ scores.compatibility[key] }} %
+                    {{ scores.compatibility[index].v }} %
                   </p>
                 </v-flex>
                 <v-flex xs2>
-                  <v-icon small color="green" v-show="scores.qualified[key]">fa-check-circle</v-icon>
+                  <transition name="fade">
+                    <v-icon small color="green" v-if="scores.qualified[index].v">fa-check-circle</v-icon>
+                  </transition>
                 </v-flex>
               </v-layout>
             </v-flex>
@@ -197,5 +199,13 @@
 <style media="screen">
   div {
     text-transform: capitalize;
+  }
+
+  .fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+  }
+
+  .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+    opacity: 0;
   }
 </style>
