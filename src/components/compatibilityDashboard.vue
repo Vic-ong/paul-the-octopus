@@ -126,7 +126,7 @@
 </template>
 
 <script type="text/javascript">
-  import { calculateCompatibility } from './predictor'
+  import { calculateCompatibility, getNearest } from './predictor'
 
   export default {
     props: {
@@ -148,6 +148,7 @@
     created () {
       this.initParams()
       this.updateCalc()
+      getNearest()
     },
     watch: {
       overwrite (val) {

@@ -1,10 +1,12 @@
 import _ from 'lodash'
+import { kdTree } from 'kd-tree-javascript'
+
+const threshold = 80 // capture +/- 20% margin
+const decimalRound = 2
+const p = [ 0.5, 0.78, 1, 2 ]
 
 const calculateCompatibility = (app, team) => {
   const keys = Object.keys(app.attr)
-  const threshold = 80
-  const decimalRound = 2
-  const p = [ 0.5, 0.78, 1, 2 ]
   let bench = {
     max: {},
     min: {}
@@ -89,6 +91,140 @@ const roundTo = (x, n) => {
   return Math.round(x * factor) / factor
 }
 
+const getNearest = () => {
+  let train = [
+    {
+      teamwork: 7,
+      strength: 8,
+      endurance: 6,
+      intelligence: 9,
+      management: 10,
+      leadership: 9,
+      programming: 2,
+      outgoing: 6
+    },
+    {
+      teamwork: 9,
+      strength: 7,
+      endurance: 3,
+      intelligence: 8,
+      management: 4,
+      leadership: 6,
+      programming: 6,
+      outgoing: 7
+    },
+    {
+      teamwork: 8,
+      strength: 9,
+      endurance: 5,
+      intelligence: 10,
+      management: 7,
+      leadership: 8,
+      programming: 9,
+      outgoing: 10
+    },
+    {
+      teamwork: 10,
+      strength: 8,
+      endurance: 7,
+      intelligence: 8,
+      management: 4,
+      leadership: 7,
+      programming: 9,
+      outgoing: 9
+    },
+    {
+      teamwork: 7,
+      strength: 6,
+      endurance: 10,
+      intelligence: 7,
+      management: 7,
+      leadership: 8,
+      programming: 9,
+      outgoing: 3
+    },
+    {
+      teamwork: 5,
+      strength: 8,
+      endurance: 7,
+      intelligence: 3,
+      management: 10,
+      leadership: 9,
+      programming: 2,
+      outgoing: 6
+    },
+    {
+      teamwork: 7,
+      strength: 8,
+      endurance: 3,
+      intelligence: 9,
+      management: 1,
+      leadership: 9,
+      programming: 2,
+      outgoing: 7
+    },
+    {
+      teamwork: 6,
+      strength: 6,
+      endurance: 6,
+      intelligence: 9,
+      management: 8,
+      leadership: 9,
+      programming: 2,
+      outgoing: 2
+    },
+    {
+      teamwork: 9,
+      strength: 8,
+      endurance: 6,
+      intelligence: 10,
+      management: 3,
+      leadership: 9,
+      programming: 10,
+      outgoing: 7
+    },
+    {
+      teamwork: 3,
+      strength: 8,
+      endurance: 6,
+      intelligence: 6,
+      management: 6,
+      leadership: 9,
+      programming: 8,
+      outgoing: 3
+    }
+  ]
+
+  let test = {
+    teamwork: 8,
+    strength: 8,
+    endurance: 10,
+    intelligence: 6,
+    management: 3,
+    leadership: 9,
+    programming: 7,
+    outgoing: 3
+  }
+  const keys = Object.keys(test)
+
+  let distance = function (a, b) {
+    const p = 2
+    let distPowP = 0
+
+    Object.keys(a).forEach(key => {
+      distPowP += Math.pow(Math.abs(a[key] - b[key]), p)
+    })
+    return Math.pow(distPowP, 1 / p)
+  }
+  // simulate a new tree
+  let tree = new kdTree(train, distance, keys)
+
+  let nearest = tree.nearest(test, 3)
+
+  console.log(nearest)
+}
+
 export {
-  calculateCompatibility
+  calculateCompatibility,
+  getNearest
 }
