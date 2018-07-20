@@ -8,8 +8,7 @@
   export default {
     data () {
       return {
-        title: 'Paul the Octopus',
-        color: 'orange'
+        title: 'Paul the Octopus'
       }
     }
   }

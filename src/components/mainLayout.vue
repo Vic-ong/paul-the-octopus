@@ -1,34 +1,22 @@
 <template id="home">
  <v-layout row wrap>
    <v-flex xs12>
-     <v-speed-dial open-on-hover absolute fixed
-       class="ml-4 mt-4"
-       v-model="menu.show"
-       :direction="menu.flowDir"
-       :transition="menu.transition"
+     <v-btn fab large
+       style="position: absolute;"
+       class="mt-4 ml-4"
+       slot="activator"
+       v-model="overwrite"
+       @click="overwrite = !overwrite"
      >
-       <v-btn fab large
-         slot="activator"
-         v-model="menu.show"
-       >
-         <v-icon color="blue-grey">fingerprint</v-icon>
-         <v-icon color="grey">close</v-icon>
-       </v-btn>
-       <v-btn fab color="green">
-         <v-icon>edit</v-icon>
-       </v-btn>
-       <v-btn fab color="indigo">
-         <v-icon>add</v-icon>
-       </v-btn>
-       <v-btn fab color="red">
-         <v-icon>delete</v-icon>
-       </v-btn>
-     </v-speed-dial>
+       <v-icon color="blue-grey">fingerprint</v-icon>
+       <v-icon color="grey">close</v-icon>
+     </v-btn>
 
      <header-title/>
 
      <v-container>
-       <compatibility-dashboard/>
+       <compatibility-dashboard :overwrite="overwrite">
+       </compatibility-dashboard>
      </v-container>
 
      <v-footer app fixed>
@@ -50,6 +38,7 @@
     },
     data () {
       return {
+        overwrite: false,
         menu: {
           show: false,
           flowDir: 'bottom',
