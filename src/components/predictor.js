@@ -1,3 +1,4 @@
+/* eslint-disable */
 import _ from 'lodash'
 import { kdTree } from 'kd-tree-javascript'
 
@@ -208,7 +209,7 @@ const getNearest = () => {
   const keys = Object.keys(test)
 
   let distance = function (a, b) {
-    const p = 2
+    const p = 0.78
     let distPowP = 0
 
     Object.keys(a).forEach(key => {

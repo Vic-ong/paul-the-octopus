@@ -126,6 +126,7 @@
 </template>
 
 <script type="text/javascript">
+  /* eslint-disable */
   import { calculateCompatibility, getNearest } from './predictor'
 
   export default {
